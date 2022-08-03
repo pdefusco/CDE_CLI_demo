@@ -52,6 +52,7 @@ To start, the following options that you may have used with `spark-submit` shoul
 
 ## Update
 - spark-submit --files, --py-files, –jars comma-separated syntax can be used:
+  ```
     --files f1.txt,f2.txt
   ```
 - **IMPORTANT** : by default, files included with job configuration (e.g. `--file some_file.txt`) will be available under `/app/mount/some_file.txt` (and not the Spark process working directory).  Therefore the application will need to refer to this full path to access the file (rather than `./some_file.txt`).
