@@ -51,13 +51,8 @@ To start, the following options that you may have used with `spark-submit` shoul
 - drop `shuffle.service.enabled=true` : external shuffle service is actively being developed by Cloudera for Spark-on-k8s (available in an upcoming release)
 
 ## Update
-- `spark-submit`'s `--files` and `--py-files` comma-separated syntax must be replaced with multiple `--file` / `py-file` entries.  For example:
-  ```
-  --files f1.txt,f2.txt
-  
-  becomes
-  
-  --file f1.txt --file f2.txt
+- spark-submit --files, --py-files, –jars comma-separated syntax can be used:
+    --files f1.txt,f2.txt
   ```
 - **IMPORTANT** : by default, files included with job configuration (e.g. `--file some_file.txt`) will be available under `/app/mount/some_file.txt` (and not the Spark process working directory).  Therefore the application will need to refer to this full path to access the file (rather than `./some_file.txt`).
 - If the application/entrypoint itself needs to be passed additional arguments, these should be separated from the `cde spark submit` arguments using `--` in front of them. This will instruct the parser to treat the rest of the string literally, e.g.:
@@ -67,7 +62,6 @@ To start, the following options that you may have used with `spark-submit` shoul
 * Rename `--app.name` to `--job-name`
 * CDE defaults to Python3.  If you intend to use legacy Python2, Add `--python-version python2`.  The Python version should always be set through CDE (for example, `--python-version` flag).  Any previous references used to set the Python version (such as `spark.yarn.appMasterEnv.PYSPARK_PYTHON=python3.6`) should be removed.
 * If you are migrating an application from an on-prem environment that uses HDFS for storage, you will also likely need to update `hdfs://...` paths in your configuration to the equivalent cloud storage URI of that data (for example, `s3a://...`)
-* 
 
 
 ## Review
